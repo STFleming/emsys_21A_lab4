@@ -13,7 +13,7 @@ To connect to a lab machine you will need a few things:
 
 __Connecting to the Uni VPN__
 
-Please follow the guides [[here](http://vpn.swan.ac.uk/)].
+Please follow the guides [[here](http://vpn.swan.ac.uk/)]. _(I'm sorry, I know pulse secure is painful, I wish they had not closed the ssh ports last year)_
 
 __Setting up ssh and X11 forwarding:__
 
@@ -31,5 +31,15 @@ I encourage you to try and work via ssh, using the bash terminal. In case you ar
 <p align="center">
         <a href="http://www.youtube.com/watch?feature=player_embedded&v=ZfgbowDwgRU
         " target="_blank"><img src="misc/basic_vim_and_bash_usage.png"
+        alt="Lesson Video" width="510" height="360" border="10" /></a>
+</p>
+
+## Testing out your lab environment
+
+Once you've got ssh setup, connected to a machine, and familiarised yourself with bash and vim. Let's try simulating a hardware circuit. Please watch the following video:
+
+<p align="center">
+        <a href="http://www.youtube.com/watch?feature=player_embedded&v=r3rT3wBTRoU
+        " target="_blank"><img src="misc/testing_lab_setup.png"
         alt="Lesson Video" width="510" height="360" border="10" /></a>
 </p>
