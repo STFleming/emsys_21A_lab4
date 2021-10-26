@@ -17,6 +17,7 @@
 #include <sstream>
 
 #include "emsysProg.hpp" // used to parse the input program
+#include "emsysTest.hpp" // used to parse the test program
 
 // Current simulation time (64-bit unsigned)
 vluint64_t main_time = 0;
@@ -29,7 +30,11 @@ int main(int argc, char** argv, char** env) {
     // This is a more complicated example, please also see the simpler examples/make_hello_c.
 
     // Try and parse the input program
-    emsysProg tprog("program.emsys");
+    #ifdef TEST 
+        emsysTest tprog(".build_files/test.emsys");
+    #else
+        emsysProg tprog("program.emsys");
+    #endif
 
     fprintf(stdout, "Successfully loaded %u instructions\n", tprog.size());
 
@@ -72,16 +77,16 @@ int main(int argc, char** argv, char** env) {
 
                 if (!top->clk) {
 
-                        //if(main_time > 1 && main_time < 10) {
-                        //        top->rst = 1;
-                        //} else {
-                                top->rst = 0;
-                                op_t t = tprog.pop();
+                    top->rst = 0;
+                    #ifdef TEST
+                        test_op_t t = tprog.pop();
+                    #else
+                        op_t t = tprog.pop();
+                    #endif
 
-                                top->a_in = t.a;
-                                top->b_in = t.b;
-                                top->op_in = t.opcode;
-                        //}
+                    top->a_in = t.a;
+                    top->b_in = t.b;
+                    top->op_in = t.opcode;
                 }
 
 
@@ -94,6 +99,18 @@ int main(int argc, char** argv, char** env) {
         // timestep then instead of eval(), call eval_step() on each, then
         // eval_end_step() on each.)
         top->eval();
+
+        #ifdef TEST
+            if (!top->clk) {
+                test_op_t e = tprog.pop_expected();
+                fprintf(stderr, "TEST: %s %d %d expects %d", e.op_str.c_str(), e.a, e.b, e.expected);
+                if(e.expected != top->q_out) {
+                        fprintf(stderr, " produced %d [TEST FAILED]\n", top->q_out);
+                } else {
+                        fprintf(stderr, " [TEST PASSED]\n");
+                }
+            }
+        #endif
 
     }
     top->eval();

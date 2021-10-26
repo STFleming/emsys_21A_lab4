@@ -97,7 +97,43 @@ default: run
 vis_structs: vis_struct.json
 	$(VISSTRUCT) -i vis_struct.json -v _vis.sv -c _vis.hpp
 
-run:  
+test: clean 
+	@echo
+	@echo "-- EmSys test suite"
+
+	@echo
+	@echo "-- VERILATE ----------------"
+	$(VERILATOR) $(VERILATOR_FLAGS) $(VERILATOR_INPUT) 
+
+	@echo
+	@echo "-- BUILD -------------------"
+# To compile, we can either
+# 1. Pass --build to Verilator by editing VERILATOR_FLAGS above.
+# 2. Or, run the make rules Verilator does:
+#	$(MAKE) -j -C obj_dir -f Vtop.mk
+# 3. Or, call a submakefile where we can override the rules ourselves:
+	$(MAKE) -j -C obj_dir -f ../$(HIDDEN)/Makefile_obj TESTVAR=-DTEST
+
+	@echo
+	@echo "-- RUN ---------------------"
+	@rm -rf logs
+	@mkdir -p logs
+	obj_dir/Vtop_tb +trace
+
+	@echo
+	@echo "-- COVERAGE ----------------"
+	@rm -rf logs/annotated
+	$(VERILATOR_COVERAGE) --annotate logs/annotated logs/coverage.dat
+
+	@echo
+	@echo "-- DONE --------------------"
+	@echo "To see waveforms, open wavedump.vcd in a waveform viewer"
+	@echo
+
+	@cp logs/vlt_dump.vcd ./wavedump.vcd
+
+
+run: clean 
 	@echo
 	@echo "-- Verilator tracing example"
 
@@ -112,7 +148,7 @@ run:
 # 2. Or, run the make rules Verilator does:
 #	$(MAKE) -j -C obj_dir -f Vtop.mk
 # 3. Or, call a submakefile where we can override the rules ourselves:
-	$(MAKE) -j -C obj_dir -f ../$(HIDDEN)/Makefile_obj
+	$(MAKE) -j -C obj_dir -f ../$(HIDDEN)/Makefile_obj  
 
 	@echo
 	@echo "-- RUN ---------------------"
