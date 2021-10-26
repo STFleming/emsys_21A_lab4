@@ -114,13 +114,15 @@ A possible design for your circuit could be as follows:
 
 We are now going to upgrade our ALU from task 1 to contain a working register. This is a single register that can store some data that we can operate over. 
 
+![](misc/simple_alu_working_reg.png)
+
 Instead of three inputs, the ALU now has only two.
 * An opcode input
 * A data input
 
-Internally we will add a register to the ALU, which can be used to save data and operate over it. A register used in this fashion within a ALU is sometimes referred to as a working register. 
+In the diagram above you'll notice that the output of MUX is now fed into an internal working register in the ALU. This register stores the value of current operation. The output of the register is fed into the input of the different operations (e.g. ADD, SR1) allowing us to operate on output of the previous operation. 
 
-Below is a table of the OPCODE and their expected function, where ``w`` is the value inside the working register. 
+For this version of the ALU we require different OPCODES. Below is a table of the OPCODE and their expected function, where ``w`` is the value inside the working register. 
 
 | OPCODE (binary) | ASSEMBLER COMMAND | DETAILS                                                                                           |
 |-----------------|-------------------|---------------------------------------------------------------------------------------------------|
@@ -133,4 +135,6 @@ Below is a table of the OPCODE and their expected function, where ``w`` is the v
 | 110             | ``SET a``    | Stores the value __a__ in the working register; Output 0 at __q__ |
 | 111             |     | working register remains unchanged; output 0 at q |
 
+
+__Complete the Verilog hardware description in [[task2/alu.sv](task2/alu.sv)] such that the opcodes execute correctly for some input functions__ 
 
