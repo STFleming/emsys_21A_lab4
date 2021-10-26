@@ -127,7 +127,7 @@ run:
 
 	@echo
 	@echo "-- DONE --------------------"
-	@echo "To see waveforms, open vlt_dump.vcd in a waveform viewer"
+	@echo "To see waveforms, open wavedump.vcd in a waveform viewer"
 	@echo
 
 	@cp logs/vlt_dump.vcd ./wavedump.vcd
