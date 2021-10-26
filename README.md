@@ -126,12 +126,12 @@ For this version of the ALU we require different OPCODES. Below is a table of th
 
 | OPCODE (binary) | ASSEMBLER COMMAND | DETAILS                                                                                           |
 |-----------------|-------------------|---------------------------------------------------------------------------------------------------|
-| 000             | ``ADD a``  | Store the value __a__ + __w__ in the working register; Output __a__ + __w__ at __q__ |
-| 001             | ``SUB a``  | Store the value __a__ - __w__ in the working register; Output __a__ - __w__ at __q__ |
+| 000             | ``ADD a``  | Store the value __w__ + __a__ in the working register; Output __w__ + __a__ at __q__ |
+| 001             | ``SUB a``  | Store the value __w__ - __a__ in the working register; Output __w__ - __a__ at __q__ |
 | 010             | ``SR1``  | Save the value __w__ >> 1 in the working register; Output __w__ >> 1 at __q__ |
 | 011             | ``SL1``  | Save the value __w__ << 1 in the working register; Output __w__ << 1 at __q__ |
-| 100             | ``AND a``  | Save the value __a__ & __w__ in the working register; Output __a__ & __w__ at __q__ |
-| 101             | ``OR a``  | Save the value __a__ | __w__ in the working register; Output __a__ | __w__ at __q__ |
+| 100             | ``AND a``  | Save the value __w__ & __a__ in the working register; Output __w__ & __a__ at __q__ |
+| 101             | ``OR a``  | Save the value __w__ | __a__ in the working register; Output __w__ | __a__ at __q__ |
 | 110             | ``SET a``    | Stores the value __a__ in the working register; Output 0 at __q__ |
 | 111             |     | working register remains unchanged; output 0 at q |
 
