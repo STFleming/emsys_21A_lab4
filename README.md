@@ -44,9 +44,38 @@ Once you've got ssh setup, connected to a machine, and familiarised yourself wit
         alt="Lesson Video" width="510" height="360" border="10" /></a>
 </p>
 
+## GitHub Repos 
+You should all now have the lab setup code pushed to your GitHub repositories, check to make sure that you have:
+```
+        <your github repo>/lab4/task1
+        <your github repo>/lab4/task2
+```
+
+In each of these subdirectories you should see:
+* ```alu.sv``` The Verilog file where you will describe your ALU.
+* ```program.emsys``` The assembler like code that you can use to program your ALU.
+* Some files used to build and execute the Verilog simulation.
+
+To build your hardware and simulate it in the relevant tasks directory type:
+```
+        make run
+```
+
+To run a set of tests on the hardware type:
+```
+        make test
+```
+
+For each of the tests, you should see the assembler line that was executed, what the expected value was, what the value your hardware produced was, and if the test passed or failed.
+
+
 ## Task 1 : Designing logic for a simple ALU-like module
 
 In this first task, you will design a simple ALU-like module. ALU stands for arithmetic logic unit which are small blocks of hardware within a CPU that perform different arithmetic operations on some inputs depending on a programmable opcode.  
+
+In each of these folders you can find the files used to describe the hardware, run the simulation, and program you hardware for both the tasks in this lab.
+
+
 The following tutorial videos recapping what was covered in lecture 4 might be useful for this task:
 * [1: simple in-n-out](https://www.youtube.com/watch?v=fnoMnokP9mI)
 * [2: intermediate signals](https://www.youtube.com/watch?v=ljmm6S6k2Aw)
