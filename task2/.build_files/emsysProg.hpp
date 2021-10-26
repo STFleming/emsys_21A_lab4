@@ -88,6 +88,6 @@ class emsysProg {
         private:
                 std::string _progfilename;
                 std::ifstream _progfile;
-                std::map<std::string, uint8_t> _opcodes { {"ADD", 0}, {"SUB", 1}, {"SR1", 2}, {"SR2", 3},{"SL1", 4}, {"SL2", 5}, {"WST", 6}, {"ADDW", 7} };
+                std::map<std::string, uint8_t> _opcodes { {"ADD", 0}, {"SUB", 1}, {"SR1", 2}, {"SL1", 3},{"AND", 4}, {"OR", 5}, {"SET", 6} };
                 std::queue<op_t> _instr;
 };
