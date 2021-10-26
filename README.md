@@ -3,12 +3,12 @@
 In this lab, you will construct a basic ALU-like hardware module. You will write a small program for it in an assembly language, write the Verilog hardware description for the module, and simulate it with Verilator.
 
 ## Setting up your hardware development environment
-For the lab work you will be required to remote connect to the Linux lab machines in Uni, or you can physically come in and use the terminals in the lab session. If remote connecting, and not using the physical Linux machines in the labs, I fully encourage you to embrace the command line and to do all of your development via ssh. I understand that this might be daunting for some, it was for me when I first started, so I have made some videos to try and help you along.
+For the lab work, you need to remote connect to the Linux lab machines in Uni, or you can physically come in and use the terminals in the lab session. If you remote connect and don't use the physical Linux machines in the labs, I fully encourage you to embrace the command line and to do all of your development via ssh. I understand that this might be daunting for some, it was for me when I first started, so I have made some videos a little further down this page to help.
 
 ### Connecting to a machine in the Linux lab
 To connect to a lab machine you will need a few things:
-1. A linux lab account, COSIT should have emailed you with the details for this a week or two ago. Please let me know if you don't have one.
-2. Setting up VPN access to the University. 
+1. A Linux lab account, COSIT should have emailed you with the details for this a week or two ago. Please let me know if you don't have one.
+2. The ability to connect to the university VPN. 
 3. An ssh client with X11 forwarding setup on your local machine.
 
 __Connecting to the Uni VPN__
@@ -22,7 +22,7 @@ To setup ssh and X11 forwarding I have found the following tutorials helpful in 
 * [[For Linux (Ubuntu)](https://youtu.be/FlHVuA_98SA)]
 * [[For Mac](https://www.cyberciti.biz/faq/apple-osx-mountain-lion-mavericks-install-xquartz-server/)]
 
-Once you have that setup on your machine, pick a linux machine machine from [[here](machines/list.md)], and try and connect. 
+Once you have that setup on your machine, pick a linux machine machine from [[here](misc/machine_list.md)], and try and connect. 
 
 ### Basic bash and vim tutorial
 
@@ -106,7 +106,7 @@ To simulate the hardware and inspect the waveforms for task1 do the following:
 2. Type ```make``` to build the simulation and run it. 
 3. Once the simulation finishes, type ``gtkwave wavedump.vcd`` to view the waveform.
 
-Then I would like you to write the Verilog body for the module in [[task1/alu.sv](task1/alu.sv)] to take the inputs and assign the appropriate value to the output __q__.
+__Complete the Verilog hardware description in [[task1/alu.sv](task1/alu.sv)] to take the inputs and assign the appropriate value to the output ```q```. You do not need to write anything in the README.md files, the hardware description is sufficient.__
 
 A possible design for your circuit could be as follows:
 
@@ -115,7 +115,7 @@ A possible design for your circuit could be as follows:
 ### Some useful tips & getting started
 
 * Verilog has operators for addition + and subtraction -. You __do not__ need to implement adder logic from first principles using logic gates. 
-* Compile the program without any logic inside and make sure you understand how the input signals, __a__, __b__, and __op__ are changing in relation to the input program. 
+* First I would recommend simulating the hardware without any logic inside and make sure you understand how the input signals, __a__, __b__, and __op__ are changing in relation to the input program ```program.emsys```. 
 
 ## Task 2 : Adding a working register 
 
@@ -128,10 +128,10 @@ To do this we will need to add some simple sequential logic circuitry so that we
 ![](misc/simple_alu_working_reg.png)
 
 Instead of three inputs, the ALU now has only two.
-* An opcode input
-* A data input
+* An opcode input __op__.
+* A data input, __a__.
 
-In the diagram above you'll notice that the output of MUX is now fed into an internal working register in the ALU. This register stores the value of current operation. The output of the register is fed into the input of the different operations (e.g. ADD, SR1) allowing us to operate on output of the previous operation. 
+In the diagram above you'll notice that the output of the multiplexer is now fed into an internal working register in the ALU. This register stores the value of the current operation. The output of the register is fed into the input of the different operations (e.g. ADD, SR1) allowing us to operate on output of the previous operation. 
 
 For this version of the ALU we require different OPCODES. Below is a table of the OPCODE and their expected function, where ``w`` is the value inside the working register. 
 
