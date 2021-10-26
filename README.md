@@ -47,6 +47,13 @@ Once you've got ssh setup, connected to a machine, and familiarised yourself wit
 ## Task 1 : Designing logic for a simple ALU-like module
 
 In this first task, you will design a simple ALU-like module. ALU stands for arithmetic logic unit which are small blocks of hardware within a CPU that perform different arithmetic operations on some inputs depending on a programmable opcode.  
+The following tutorial videos recapping what was covered in lecture 4 might be useful for this task:
+* [1: simple in-n-out](https://www.youtube.com/watch?v=fnoMnokP9mI)
+* [2: intermediate signals](https://www.youtube.com/watch?v=ljmm6S6k2Aw)
+* [3: bus signals and multiplexers](https://www.youtube.com/watch?v=Jb-gnzetZts)
+* [4(a): procedural blocks](https://www.youtube.com/watch?v=xdUcyrSBPWk)
+* [4(b): literal values & concatenation](https://www.youtube.com/watch?v=3n8KvPvERuo)
+* [4(c): larger multiplexer](https://www.youtube.com/watch?v=KYga2d_1dnA) 
 
 The ALU module will have three inputs, __a__, __b__, and __op__. There is a single output, __q__. 
 * __a__ is the first 8-bit operand.
@@ -113,6 +120,10 @@ A possible design for your circuit could be as follows:
 ## Task 2 : Adding a working register 
 
 We are now going to upgrade our ALU from task 1 to contain a working register. This is a single register that can store some data that we can operate over. 
+To do this we will need to add some simple sequential logic circuitry so that we can save some state, the following videos recapping what was taught in Lecture 5 might be helpful for this.
+* [1: sequential logic and D-Type flip flops](https://www.youtube.com/watch?v=jlS4MDr58C8)
+* [2: describing a counter circuit](https://www.youtube.com/watch?v=U3K91t8aIXA)
+* [3: write enable register](https://www.youtube.com/watch?v=rLxE8sf2zPM)
 
 ![](misc/simple_alu_working_reg.png)
 
