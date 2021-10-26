@@ -1,6 +1,7 @@
-// A header file to parse the program file for the simple ALU in lab 4
+// A header file to parse the test program file for the simple ALU in lab 4
 //
 // author: stf
+#pragma once
 
 #include <string>
 #include <fstream>
@@ -9,14 +10,16 @@
 #include <queue>
 
 typedef struct {
+        std::string op_str;
+        uint8_t expected;
         uint8_t opcode;
         uint8_t a;
         uint8_t b;
-} op_t;
+} test_op_t;
 
-class emsysProg {
+class emsysTest {
         public:
-                emsysProg(std::string progfilename) {
+                emsysTest(std::string progfilename) {
                         _progfilename = progfilename;
                         _progfile = std::ifstream(_progfilename); 
                         parse();
@@ -49,21 +52,25 @@ class emsysProg {
                                 
                                 // Get tokens
                                 std::vector<std::string> tok = getTokens(istr);
-                                op_t o;
-                                if(opcheck(tok[0])){ 
-                                        o.opcode = _opcodes[tok[0]];
-                                        if(tok.size() < 2)
-                                                o.a = 0;
-                                        else
-                                                o.a = atoi(tok[1].c_str());
+                                test_op_t o;
+                                if(opcheck(tok[1])){ 
+                                        o.expected = atoi(tok[0].c_str());
+                                        o.opcode = _opcodes[tok[1]];
+                                        o.op_str = tok[1];
 
                                         if(tok.size() < 3) 
+                                                o.a = 0;
+                                        else
+                                                o.a = atoi(tok[2].c_str());
+
+                                        if(tok.size() < 4)
                                                 o.b = 0;
                                         else
-                                                o.b = atoi(tok[2].c_str());
+                                                o.b = atoi(tok[3].c_str());
 
                                         fprintf(stdout, "\t PARSED: op[%d] %d %d\n", o.opcode, o.a, o.b);
                                         _instr.push(o);
+                                        _expected.push(o);
                                 } else {
                                         fprintf(stderr, "ERROR on line %d: Unknown opcode %s\n\n\n",lineno, tok[0].c_str());
                                         exit(1);
@@ -75,14 +82,31 @@ class emsysProg {
 
                 // Get the number of instructions loaded
                 unsigned size() { return _instr.size(); }
+                unsigned expected_size() { return _expected.size(); }
 
                 // Pop the next instruction
-                op_t pop() {
-                        op_t t;
+                test_op_t pop() {
+                        test_op_t t;
                         if(size() > 0) {
                               t = _instr.front();
                               _instr.pop();
                         } else {
+                                t.expected = 0;
+                                t.opcode = 0;
+                                t.a = 0;
+                                t.b = 0;
+                        }
+                        return t;
+                }
+
+                // Pop the next expected value
+                test_op_t pop_expected() {
+                        test_op_t t;
+                        if(expected_size() > 0) {
+                              t = _expected.front();
+                              _expected.pop();
+                        } else {
+                                t.expected = 0;
                                 t.opcode = 0;
                                 t.a = 0;
                                 t.b = 0;
@@ -94,5 +118,6 @@ class emsysProg {
                 std::string _progfilename;
                 std::ifstream _progfile;
                 std::map<std::string, uint8_t> _opcodes { {"ADD", 0}, {"SUB", 1}, {"SR1", 2}, {"SL1", 3},{"AND", 4}, {"OR", 5}, {"SET", 6} };
-                std::queue<op_t> _instr;
+                std::queue<test_op_t> _instr;
+                std::queue<test_op_t> _expected;
 };

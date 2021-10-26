@@ -26,7 +26,9 @@ module top_tb(
    );
 
    always_ff @(posedge clk) begin 
-        $display("opcode=%b, a=%d, b=%d, q=%d ", op_in, a_in, b_in, q_out);
+        if(!rst) begin
+                $display("opcode=%b, a=%d, b=%d, q=%d ", op_in, a_in, b_in, q_out);
+        end
    end
 
 
