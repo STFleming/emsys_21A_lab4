@@ -176,5 +176,5 @@ For this version of the ALU we require different OPCODES. Below is a table of th
 | 111             |     | working register remains unchanged; output 0 at q |
 
 
-__Complete the Verilog hardware description in [[task2/alu.sv](task2/alu.sv)] such that the opcodes execute correctly for some input functions__ 
+__Complete the Verilog hardware description in [[task2/alu.sv](task2/alu.sv)] such that it passes the tests and test it with some of your own programs__ 
 
